@@ -1,0 +1,2 @@
+def pfunction():
+    print("Aaarg!")

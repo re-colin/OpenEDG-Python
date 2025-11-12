@@ -1,0 +1,2 @@
+def pirate():
+    print("Aaarg!")

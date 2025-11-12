@@ -1,0 +1,2 @@
+def pancake():
+    print("Pancake")
