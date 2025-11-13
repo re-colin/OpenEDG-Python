@@ -1,5 +1,4 @@
-# MODULE 2 PART 3
-# =====================================================================
+# MODULE 2 PART 3: OBJECT ORIENTED PROGRAMMING =====================================================================
 
 
 # PROCEDURAL VS OBJECT APPROACH
@@ -113,3 +112,61 @@ stack2.push(2)
 
 print(stack1)
 print(stack2)
+
+# Constructing a subclass
+class AddingStack(Stack):
+    def __init__(self):
+        Stack.__init__(self) # Must explicitly invoke superclass constructor - of which initializes the __stack_list property
+        self.__sum = 0
+
+    # Subclasses' overriding of its superclasses' push() function.
+    # It acts as an interface for accessing the superclass function aswell as adding functions, like incrementing the __sum variable.
+    def push(self, val):
+        self.__sum += val 
+        Stack.push(self, val)
+
+    def pop(self):
+        val = Stack.pop(self)
+        self.__sum -= val
+        return val 
+
+    # Displaying a read-only function variable to the user
+    def get_sum(self):
+        return self.__sum
+    
+stack_object = AddingStack()
+
+for i in range(5):
+    stack_object.push(i)
+
+print(stack_object.get_sum())
+
+# =========================================================
+# Instance variables
+# Python objects have predefined properties and methods. 
+# e.g a variable names __dict__, containing all names and values the object is currently carrying.
+
+class Example:
+    def __init__(self, val = 1):
+        self.__first = val
+
+    def set_second(self , val = 2):
+        self.__second = val 
+
+example1 = Example()
+example2 = Example(2)
+
+example2.set_second(3)
+
+example3 = Example(4)
+# When Python sees you want to add an instance variable to an object using its objects methods
+# - it puts the class name before your variable name
+# - and an additional underscore at the beginning
+example3.__third = 5  
+
+print(example1.__dict__) # {'_Example__first': 1}
+print(example2.__dict__) # {'_Example__first': 2, '_Example__second': 3}
+print(example3.__dict__) # {'_Example__first': 4, '__third': 5}
+
+# Meaning the name is now fully accessible from outside the class.
+print(example1._Example__first)
