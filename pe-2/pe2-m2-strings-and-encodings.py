@@ -191,13 +191,12 @@ print("i know that i know nothing".title())
 # Operations are case sensitive.
 
 # when comparing two strings of different lengths, and the shorter one is identical to the start of the longer one, the longer string is considered greater.
-print('alpha' < 'alphabet')
-
-print('alpha' == 'Alpha')
-print('Alpha' != 'alphabet')
+print('alpha' < 'alphabet')  # True
+print('alpha' == 'Alpha')    # False
+print('Alpha' != 'alphabet') #  True
 
 # Upper-case letters are taken as lesser than lowercase.
-print('alpha' > 'Alpha')
+print('alpha' > 'Alpha') # 
 
 # Sorting
 # a really sophisticated case of comparing.
@@ -210,6 +209,8 @@ print(sorted(firstg))
 secg.sort()
 print(secg)
 
+# Certain operations on string has to do with their code points.
+# This is not necessarily sorted alphabetically, but by the order of each characters code points.
 s1 = 'Where are the snows of yesteryear?'
 s2 = s1.split()
 s3 = sorted(s2)
@@ -228,3 +229,5 @@ print(i)
 
 
 # Because of limited native float and integer data precision, sometimes it makes sense to store and process huge numeric values as strings. 
+
+# 
