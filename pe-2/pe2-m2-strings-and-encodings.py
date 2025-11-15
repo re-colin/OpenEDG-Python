@@ -229,5 +229,123 @@ print(i)
 
 
 # Because of limited native float and integer data precision, sometimes it makes sense to store and process huge numeric values as strings. 
+# See string-sorting.py.
 
-# 
+
+# Errors, failures, and other plagues
+# Anything that can go wrong, will go wrong.
+# When your code does something "wrong", Python stops the program and creates (raises) data. It raises it and expects it to be handled.
+
+value = 1
+try:
+    value /= 0
+except ZeroDivisionError:
+    print("dummy")
+
+mylist = []
+
+try:
+    x = mylist[0]
+except IndexError:
+    print("index doesnt exist")
+
+# Alternatively you could just check if everything meets the code criteria before running it, but that can cause bloated and illegible code.
+# It isnt specific enough.
+
+first_number = int(input("Enter the first number: "))
+second_number = int(input("Enter the second number: "))
+
+if second_number != 0:
+    print(first_number / second_number)
+else:
+    print("This operation cannot be done.")
+
+print("THE END.")
+
+# Note that this may cause certain instructions to be silently omitted if anything before it within the try block goes wrong.
+# Here, print("2") is lost in the process.
+try:
+    print("1")
+    x = 1 / 0
+    print("2")
+except:
+    print("Oh dear, something went wrong...")
+
+print("3")
+
+# Our print message here doesnt tell us anything about the error that was raised before.
+# Adding cases/exceptions that might go wrong is easy, but will cause heavy code growth.
+# An unnamed except block must be placed last.
+
+try:
+    x = 0
+    y = 1 / x
+    print(y)
+except ZeroDivisionError:
+    print("You cannot divide by zero, sorry.")
+except ValueError:
+    print("You must enter an integer value.")
+except:
+    print("Oh dear, something went wrong...")
+
+print("THE END.")
+
+# Built-in exceptions can be more general/abstract. They exist in a hierarchy.
+# ZeroDivisionError exception belongs to an ArithmeticError exception.
+# The following is more general, and means that the ZeroDivisionError branch wont get raised.
+
+
+try:
+    y = 1 / 0
+except ArithmeticError:
+    print("Arithmetic problem!")
+except ZeroDivisionError:
+    print("Zero Division!")
+
+# You should avoid placing more general exceptions before specific ones inside the same except branch sequence.
+# try:
+#     # Risky code
+# except IndexError:
+#     # Mistreated lists
+# except LookupError:
+#     # Other erroneous lookups
+
+print("THE END.")
+
+# The 'raise' instruction raises a specified exception.
+# This is good for testing purposes.
+def bad_function():
+    raise ZeroDivisionError
+
+# Using 'raise' by itself can only be used within an 'except' branch. It will re-raise the same exception as currently handled.
+# Exception handling can then be distributed among different parts of code.
+
+def bad_fun(n):
+    try:
+        return n / 0 # ArithmeticError > ZeroDivisonError
+    except:
+        print("I did it again!") 
+        raise
+
+
+try:
+    bad_fun(0)
+except ArithmeticError:
+    print("I see!")
+
+print("THE END.")
+
+# Assert evaluates an expression. If it returns True or anything non-zero or None, it wont do anything.
+# Otherwise, it automatically raises an exception named AssertionError.
+import math
+
+x = float(input("Enter a number: "))
+assert x >= 0.0
+
+x = math.sqrt(x)
+
+print(x)
+# It may be used where you want to be absolutely safe from evidently wrong data, and you're not sure that that data has been examined before.
+# Raising AssertionError secures code from producing invalid results. They are supplements to exceptions.
+
+# See list of built in (63) exceptions.
