@@ -143,15 +143,41 @@ print(stack_object.get_sum())
 
 # =========================================================
 # Instance variables
-# Python objects have predefined properties and methods. 
-# e.g a variable names __dict__, containing all names and values the object is currently carrying.
+# Python objects have predefined properties and methods that you dont add. e.g a property named __dict__, containing all names and values the object is currently carrying.
+# Here, we edit instance variables of multiple Example objects. These are completely isolated from eachother.
 
+class Example:
+    def __init__(self, val = 1):
+        self.first = val
+
+    def set_second(self , val = 2):
+        self.second = val 
+
+
+example1 = Example()
+example2 = Example(2)
+example2.set_second(3)
+
+example3 = Example(4)
+example3.third = 5  
+
+print(example1.__dict__) # {'first': 1}
+print(example2.__dict__) # {'first': 2, 'second': 3}
+print(example3.__dict__) # {'first': 4, 'third': 5}
+
+
+# Here, the same thing is done, except now our Example class it's objects are private.
+# When you want to add an instance variable to an object and are going to do it inside the object's methods, the operation is mangled.
+# - class name before object name
+# - additional underscore at the beginning
+# This mangling wont work if you add a private instance variable outside the class block - itll behave like any other property.
 class Example:
     def __init__(self, val = 1):
         self.__first = val
 
-    def set_second(self , val = 2):
-        self.__second = val 
+    def set_second(self, val = 2):
+        self.__second = val
+
 
 example1 = Example()
 example2 = Example(2)
@@ -159,14 +185,80 @@ example2 = Example(2)
 example2.set_second(3)
 
 example3 = Example(4)
-# When Python sees you want to add an instance variable to an object using its objects methods
-# - it puts the class name before your variable name
-# - and an additional underscore at the beginning
-example3.__third = 5  
+example3.__third = 5
 
-print(example1.__dict__) # {'_Example__first': 1}
-print(example2.__dict__) # {'_Example__first': 2, '_Example__second': 3}
-print(example3.__dict__) # {'_Example__first': 4, '__third': 5}
 
-# Meaning the name is now fully accessible from outside the class.
-print(example1._Example__first)
+print(example1.__dict__) # {'_Example__first': 1} 
+print(example2.__dict__) # {'_Example__first': 2, '_Example__second': 3} 
+print(example3.__dict__) # {'_Example__first': 4, '__third': 5} 
+
+# The same name is accessible from outside the class.
+print(example1._Example__first) # 1
+
+# =========================================================
+# Class variables
+# A property that exists in just one copy, stored outside any object.
+# No instance variable exists if there is no object in the class.
+# A class variable exists in one copy even if theres no objects in the class.
+#  
+
+class ExampleClass:
+    counter = 0
+    def __init__(self, val = 1):
+        self.__first = val
+        ExampleClass.counter += 1
+
+
+# The 'counter' variable is the same across all objects.
+example_object_1 = ExampleClass()
+example_object_2 = ExampleClass(2)
+example_object_3 = ExampleClass(4)
+
+print(example_object_1.__dict__, example_object_1.counter)
+print(example_object_2.__dict__, example_object_2.counter)
+print(example_object_3.__dict__, example_object_3.counter)
+
+# =========================================================
+# Class variables 2
+
+class ExampleClass:
+    varia = 1
+    def __init__(self, val):
+        # Note self vs ExampleClass assignmenti
+        # Changing assignment to self.varia creates an instance variable of the same name as the class's one.
+        # Saying varia = val operates on the methods local variable. 
+        self.varia = val # 1
+        # varia = val # 1
+        # ExampleClass.varia = val # 2
+
+
+
+example_object = ExampleClass(2)
+
+print(ExampleClass.__dict__)
+print(example_object.__dict__)
+
+# Class __dict__ variable
+print(ExampleClass.__dict__) # {'__module__': '__main__', 'counter': 3, '__init__': <function ExampleClass.__init__ at 0x000001D18F0BA840>, '__dict__': <attribute '__dict__' of 'ExampleClass' objects>, '__weakref__': <attribute '__weakref__' of 'ExampleClass' objects>, '__doc__': None}
+
+# Object __dict__ variable
+print(example_object_1.__dict__) # {'_ExampleClass__first': 1}
+
+print(ExampleClass.varia)
+
+# =============================================
+# Not all objects of the same class have the same properties.
+
+class ExampleClass:
+    def __init__(self, val):
+        if val % 2 != 0:
+            self.a = 1
+        else:
+            self.b = 1
+
+
+example_object = ExampleClass(1)
+
+print(example_object.a)
+# print(example_object.b) # AttributeError
+
