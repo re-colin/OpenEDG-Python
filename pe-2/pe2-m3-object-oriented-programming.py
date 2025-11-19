@@ -250,7 +250,10 @@ print(ExampleClass.varia)
 # Not all objects of the same class have the same properties.
 
 class ExampleClass:
+    __d = 4
+    e = 5
     def __init__(self, val):
+        c = 2
         if val % 2 != 0:
             self.a = 1
         else:
@@ -261,4 +264,74 @@ example_object = ExampleClass(1)
 
 print(example_object.a)
 # print(example_object.b) # AttributeError
+
+# hasattr() is more elegant than using a try/except block to see if a class has an attribute or is available to use.
+# c accessible only when instantiated.
+print(hasattr(example_object, 'c'))
+print(hasattr(ExampleClass, 'c'))
+
+# a accessible only when instantiated/__init__ function runs successfully and creates variable.
+print(hasattr(ExampleClass, 'a'))
+print(hasattr(example_object, 'a'))
+
+# d inaccessible, private variable
+print(hasattr(ExampleClass, 'd'))
+print(hasattr(example_object, 'd'))
+
+# e is a set global variable constant in all classes/their instances.
+print(hasattr(ExampleClass, 'e'))
+print(hasattr(example_object, 'e'))
+
+## =======================================================
+# METHODS
+# Functions embedded inside classes.
+# Must have atleast one parameter (self)
+# Other methods can be invoked from inside the class using 'self'.
+class Classy():
+    varia = 1
+    def __init__(self):
+        self.var = 2
+
+    def other(self):
+        print("other method")
+
+    def method(self, val):
+        print("method: ", val)
+        self.other()
+
+    def __hidden(self):
+        print("hidden")
+
+
+obj = Classy()
+obj.method(3)
+obj.method(2)
+obj.method(1)
+obj._Classy__hidden() # Mangling in order to use a private method or variable
+
+print(obj.__dict__, "\n") # Data assigned in __init__ constructor (context: object)
+print(Classy.__dict__)    # Everything else (context: class)
+print(Classy.__name__)    # __name__ is simply the name of the class. Doesnt exist in objects, only classes. 
+
+# If you'd like to find the class of a particular object
+print(type(obj).__name__)
+
+# __module__ Stores the name of the module containing the definition of a class.
+# __module__ is the file currently being run.
+print(Classy.__module__) # __main__
+print(obj.__module__) # __main__
+
+# __bases__ returns a tuple containing classes which are direct superclasses for the class.
+# Only classes have this attribute. Objects do not.
+# A class without an explicit superclass points to a predefined class called *object*.
+print(Classy.__bases__) # (<class 'object'>,)
+print(AddingStack.__bases__) # (<class '__main__.Stack'>,)
+
+# Python programmers as a result can perform:
+# Introspection > Ability of a program to examine the type or properties of an object at runtime
+# Reflection > Ability of a program to manipulate the values, properties and functions of an object at runtime
+# So its not required that you know the complete class/object definition to manipulate said object.
+
+# =========================================================
+# INHERITANCE
 

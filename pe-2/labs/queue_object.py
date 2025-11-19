@@ -1,4 +1,6 @@
 class Queue():
+    global_queue = "Hello!"
+
     def __init__(self):
         self.__queue_list = []
 
@@ -24,11 +26,19 @@ queue.pop()
 queue.pop()
 
 print(queue.__dict__) # {'_Queue__queue_list': [6, 8, 7, 2]}
+print(queue.global_queue)
 
-try:
+# try:
+#     print(queue.__queue_list)
+# except AttributeError:
+#     print("Cannot access private variable queue_list.")
+
+# This wont work anyway since queue_list is private.
+# But its a more elegant check than try/except
+if hasattr(queue, "queue.__queue_list"):
     print(queue.__queue_list)
-except AttributeError:
-    print("Cannot access private variable queue_list.")
+else:
+    print("queue.__queue_list not found.")
 
 
 class Queue():
