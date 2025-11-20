@@ -335,3 +335,99 @@ print(AddingStack.__bases__) # (<class '__main__.Stack'>,)
 # =========================================================
 # INHERITANCE
 
+print(obj) # Hex memory address e.g <__main__.Classy object at 0x00000247103A3B50>
+
+print(obj.__str__) # <method-wrapper '__str__' of Classy object at 0x000001B516413B50>
+
+# Checking if a class is a subclass of another.
+# Classes are considered to be subclasses of themselves.
+print(issubclass(AddingStack, Stack))
+print(issubclass(Stack, Stack))
+
+# 'is' checks whether two variables refer to the same object.
+# Variables dont store objects themselves, only the handles pointing to their memory location.
+# Assigning the value of an object variable to another doesnt copy the object; only its handle.
+stack1 = Stack()
+stack2 = Stack()
+stack3 = stack1
+print(stack3 is stack1) # True
+print(stack1 is stack3) # True
+print(stack1 is stack2) # False
+# Not to be confused with the is equal (==) operator which checks if two *values* are the same.
+
+# super() function
+# Creates a context where you dont have to/can't pass the self argument to the method being invoked, activating the superclass constructor with only one argument.
+class Super:
+    def __init__(self, name):
+        self.name = name
+
+    def __str__(self):
+        return "My name is " + self.name + "."
+
+
+class Sub(Super):
+    def __init__(self, name):
+        super().__init__(name)
+
+
+obj = Sub("Taft")
+print(obj)
+# Not only can you invoke the superclass constructor with it, but also get access to any resources available within the superclass.
+# Testing properties: class variables.
+class Super:
+    supVar = 1
+    def __init__(self):
+        self.supVar2 = 11
+
+
+class Sub(Super):
+    subVar = 2
+    def __init__(self):
+        super().__init__()
+        self.subVar2 = 13
+
+obj = Sub()
+
+# Superclass variable accessed from subclass object. Both are visible from the subclass.
+print(obj.subVar)
+print(obj.supVar)
+# Instance variables accessible through subclass.
+# Must call superclass init function / Superclass constructor invocation.
+print(obj.subVar2)
+print(obj.supVar2)
+
+# ============================================================================
+# How Python finds properties and methods: Continued
+# When trying to find any objects entity, python will:
+# 1. find it inside the object itself
+# 2. find it in all classes involved in the objects inheritance, from bottom to top
+# if both fail, attributeerror is raised
+# When a subclass has exactly one superclass (single inheritance). The most common and most recommended situation.
+
+# Multiple inheritance occurs when a class has more than one superclass.
+ 
+# OVERRIDING:
+# Level 2 is a subclass of Level1. It overrides its var variable and fun() method.
+class Level1:
+    var = 100
+    def fun(self):
+        return 101
+
+
+class Level2(Level1):
+    var = 200
+    def fun(self):
+        return 201
+
+
+class Level3(Level2):
+    pass
+
+
+obj = Level3()
+
+print(obj.var, obj.fun())
+
+
+
+
