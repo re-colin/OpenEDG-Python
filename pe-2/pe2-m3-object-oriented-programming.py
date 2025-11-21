@@ -428,6 +428,118 @@ obj = Level3()
 
 print(obj.var, obj.fun())
 
+# ==============================================
+
+class Left:
+    var = "L"
+    var_left = "LL"
+    def fun(self):
+        return "Left"
 
 
+class Right:
+    var = "R"
+    var_right = "RR"
+    def fun(self):
+        return "Right"
 
+# Additionally, if theres more than one class on an inheritance path, Python scans them from left to right.
+# Sub(Right, Left) -> R LL RR Right
+class Sub(Left, Right): # -> L LL RR Left
+    pass
+
+
+obj = Sub()
+
+print(obj.var, obj.var_left, obj.var_right, obj.fun())
+
+# ==============================================
+# Building a hierarchy of classes: Polymorphism
+# Where a subclass is able to modify its superclass behaviour.
+# Showcase of how Python searches for objects - bottom to top.
+# Each call of the doanything() function invokes the first occurance of its definition as Python scans for it - When two.doanything() is called, Two() searches in its superclass, and finds the first occurance of doanything() referring to itself - class Two.
+class One:
+    def do_it(self):
+        print("do_it from One")
+
+    def doanything(self):
+        self.do_it()
+
+
+class Two(One):
+    def do_it(self):
+        print("do_it from Two")
+
+
+one = One()
+two = Two()
+
+one.doanything()
+two.doanything()
+
+# Polymorphism as extending class flexibility
+# Building a class hierarchy for specialisation.
+
+# This code's commented lines error for some reason.
+# The point is that by changing the Vehicle's turn method, the rest of the subclasses will inherit the change. One change and the rest will still follow it.
+import time
+
+class Vehicle:
+    def change_direction(left, on):
+        pass
+
+    def turn(left):
+        # change_direction(left, True)
+        time.sleep(0.25)
+        # change_direction(left, False)
+
+
+class TrackedVehicle(Vehicle):
+    def control_track(left, stop):
+        pass
+
+    def change_direction(left, on):
+        # control_track(left, on)
+        pass
+
+
+class WheeledVehicle(Vehicle):
+    def turn_front_wheels(left, on):
+        pass
+
+    def change_direction(left, on):
+        # turn_front_wheels(left, on)
+        pass
+
+
+# ============================================================
+# COMPOSITION
+# Composing an object using other, different objects. 
+
+import time
+
+class Tracks:
+    def change_direction(self, left, on):
+        print("tracks: ", left, on)
+
+
+class Wheels:
+    def change_direction(self, left, on):
+        print("wheels: ", left, on)
+
+
+class Vehicle:
+    def __init__(self, controller):
+        self.controller = controller
+
+    def turn(self, left):
+        self.controller.change_direction(left, True)
+        time.sleep(0.25)
+        self.controller.change_direction(left, False)
+
+
+wheeled = Vehicle(Wheels())
+tracked = Vehicle(Tracks())
+
+wheeled.turn(True)
+tracked.turn(False)
