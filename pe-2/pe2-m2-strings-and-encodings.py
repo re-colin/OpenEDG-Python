@@ -345,7 +345,6 @@ assert x >= 0.0
 x = math.sqrt(x)
 
 print(x)
-# It may be used where you want to be absolutely safe from evidently wrong data, and you're not sure that that data has been examined before.
 # Raising AssertionError secures code from producing invalid results. They are supplements to exceptions.
 
 # See list of built in (63) exceptions.
