@@ -75,3 +75,14 @@ print(reciprocal(0))
 # This tree can be expanded recursively.
 for subclass in BaseException.__subclasses__():
     print(subclass, subclass.__name__)
+
+# args introduced by class BaseException
+# args is a tuple designed to gather all arguments passed to the class constructor.
+# if constructor has been invoked without any arguments, or just one argument (excluding self) its empty.
+
+# Creating custom exceptions
+# If your exception is a specialized case of a built-in exception, derive it from just that one.
+# If you are building your own hierarchy and dont want it to be closely related to Python's exception tree, derivce it from top exception classes e.g Exception.
+
+
+

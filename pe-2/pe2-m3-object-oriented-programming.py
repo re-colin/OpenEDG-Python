@@ -514,7 +514,9 @@ class WheeledVehicle(Vehicle):
 
 # ============================================================
 # COMPOSITION
-# Composing an object using other, different objects. 
+# Composing an object using other, different objects.
+# Inheritance extends a class's capabilities by adding new components/modifying existing ones. Complete recipe is contained inside the class and its ancestors. The object takes all the classes' belongings and makes use of them.
+# Composition projects a class as a container able to store and use other objects derived from other classes. Each part makes up the whole.
 
 import time
 
@@ -537,9 +539,10 @@ class Vehicle:
         time.sleep(0.25)
         self.controller.change_direction(left, False)
 
-
+# New vehicle types are crafted from Wheels and Tracks classes.
 wheeled = Vehicle(Wheels())
 tracked = Vehicle(Tracks())
 
 wheeled.turn(True)
 tracked.turn(False)
+

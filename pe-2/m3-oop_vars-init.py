@@ -28,6 +28,5 @@ except AttributeError:
 s1.show_stack()  # [2,3,7]
 
 # Or access the __dict__ variable.
-# See m3-oop-3.py for __dict__ info.
 print(Stack.__dict__)
 print(s1.__dict__)
