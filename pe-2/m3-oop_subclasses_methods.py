@@ -9,9 +9,16 @@ class Queue():
         del self.__queue[0]
 
 
+# Subclass extending operation of Queue class
 class QueueDataOps(Queue):
+    def __init__(self):
+        super().__init__(self)
+
     def __show_queue(self):
         return self.__queue
 
     def __peek_queue(self):
         return self.__queue[0]
+
+
+q1 = QueueDataOps()
