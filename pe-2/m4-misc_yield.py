@@ -50,6 +50,7 @@ print(l)
 
 # ===========================================
 # Generators as list comprehensions
+# Parenthesis instead of square brackets makes it a generator instead of a list.
 # In the list method, an actual list is being created.
 # Here, we are only getting a sequence of values through our generator.
 g = (i if i % 2 == 0 else 0 for i in range(10))
