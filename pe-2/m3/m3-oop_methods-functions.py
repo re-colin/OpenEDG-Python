@@ -14,9 +14,6 @@ class Stack():
     def show_stack(self):
         return self.__stack
 
-    # Hidden/private function.
-    def __show_stack_size(self):
-        return len(self.__stack)
 
 # Instance variables
 s1 = Stack()

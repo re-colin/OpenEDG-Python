@@ -1,5 +1,8 @@
 # OS MODULE
-import os 
+import os
+# labs
+#  https://edube.org/learn/pe-2/the-os-module-lab-1
+# 
 # =====================
 
 # os.uname (linux/unix based)
