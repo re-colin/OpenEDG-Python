@@ -58,5 +58,39 @@ q3.enqueue(7)
 
 print("q3 queue:", q3.show_queue())
 
-class QueueExtras():
-    pass
+class QueueExtras(QueueDefine):
+    def __init__(self):
+        super().__init__()
+        print("Extras here! :)")
+
+    def multiply_queue(self, queue, by):
+        __nqueue = []
+        for i in range(len(queue)):
+            __nqueue.append(queue[i] * by)
+        return __nqueue
+
+    def generate_queue(self, queue):
+        for i in range(len(queue)):
+            yield queue[i]     
+
+
+q4 = QueueExtras()
+
+queue = [2, 4, 5, 9]
+
+gq = q4.generate_queue(queue)
+
+# Perform an operation and copy result via list comprehension
+l = [queue[i]-1 for i in range(len(queue))]
+print(l)
+
+qcopy = []
+print(gq)
+for gi in gq:
+    print(gi)
+
+print(QueueExtras.__dict__)
+print(q4.__dict__)
+
+nq = q4.multiply_queue(queue, 4)
+print(nq)
