@@ -224,7 +224,7 @@ print(example_object_3.__dict__, example_object_3.counter)
 class ExampleClass:
     varia = 1
     def __init__(self, val):
-        # Note self vs ExampleClass assignmenti
+        # Note self vs ExampleClass assignment
         # Changing assignment to self.varia creates an instance variable of the same name as the class's one.
         # Saying varia = val operates on the methods local variable. 
         self.varia = val # 1

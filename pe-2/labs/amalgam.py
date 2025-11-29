@@ -94,3 +94,60 @@ print(q4.__dict__)
 
 nq = q4.multiply_queue(queue, 4)
 print(nq)
+
+# for x in QueueDefine():
+    # print(x)
+
+
+class I:
+    def __init__(self):
+        self.s = 'abc'
+        self.i = 0
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        if self.i == len(self.s):
+            raise StopIteration
+        
+        v = self.s[self.i]
+        self.i += 1
+        return v
+
+
+# for i in I():
+#     print(i)
+
+str1 = "doo poo bab y"
+str1 = "abcdef"
+print(str1[::2])
+print(str1[:2]) # 
+print(str1[2:]) # Chop first 2 items
+print(str1[::])
+
+l1 = ['a', 'b', 'c', 'd', 'e', 'f']
+print(l1[::2])
+print(l1[:2]) # 
+print(l1[2:]) # Chop first 2 items
+print(l1[::])
+
+print("", QueueModify.__base__)
+# print("", q2.__base__)
+print("", QueueModify.__name__)
+# print("", q2.__name__)
+print("", QueueModify.__module__)
+print("", q2.__module__)
+
+def fun(n):
+    s = '+'
+    for i in range(n):
+        s += s 
+        yield s
+
+print(fun(3))
+for i in fun(3):
+    print(i) 
+
+
+
